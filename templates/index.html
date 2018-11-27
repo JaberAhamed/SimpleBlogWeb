@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{%block title %}<title>this is index of blockapp </title>{% endblock %}
+{% block style %}
+	<style type="text/css">
+		#fh5co-offcanvas {
+    width: auto;
+}
+#fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
+    width: auto;
+    padding: 50px;
+}
+	</style>
+
+{% endblock  %}
+{% load static %}
+{% block content %}
+
+
+	<!-- END #fh5co-header -->
+    {% for acl in article %}
+
+
+
+		 <article class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-xxs-12 animate-box">
+				<figure>
+					<a href="{{ acl.get_artical_url }}"><img src="{{ acl.image.url }}" alt="Image" class="img-responsive"></a>
+				</figure>
+
+				<span class="fh5co-meta"><a href="{% url 'blog:topic' acl.catagory.name %}">{{ acl.catagory.name }}</a></span>
+
+				<h2 class="fh5co-article-title"><a href="{{ acl.get_artical_url }}">{{ acl.title }}</a></h2>
+				<span class="fh5co-meta"><a href="{{acl.get_author_url}}">{{ acl.artical_author.name }}</a></span>
+				<span class="fh5co-meta fh5co-date">{{ acl.posted_on}}</span>
+			</article>
+
+
+  {% endfor %}
+
+<div class="container">
+
+	<div class="pagination">
+    <span class="step-links">
+        {% if article.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ article.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ article.number }} of {{ article.paginator.num_pages }}.
+        </span>
+
+        {% if article.has_next %}
+            <a href="?page={{ article.next_page_number }}">next</a>
+            <a href="?page={{ article.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+
+
+{% endblock %}
+
+{% block scrip %}
+{% endblock %}

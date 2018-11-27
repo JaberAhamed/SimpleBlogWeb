@@ -1,0 +1,148 @@
+{% extends "base.html"%}
+{% block title %}<title>this is artcle </title> {% endblock %}
+	<style type="text/css">
+		#fh5co-offcanvas {
+    width: auto;
+}
+#fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
+    width: auto;
+    padding: 50px;
+}
+	</style>
+{% block style %}
+{% endblock  %}
+{% load static %}
+{% block profile %}
+<div class="fh5co-bio">
+			<figure>
+				<img src="{{ post.artical_author.image.url }}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+			</figure>
+			<h3 class="heading">About Me</h3>
+			<h2>{{ post.artical_author.name.get_full_name }}</h2>
+	        <p>{{ post.artical_author.name.email }} </p>
+			<p>{{ post.artical_author.details }} </p>
+			<ul class="fh5co-social">
+				<li><a href="#"><i class="icon-twitter"></i></a></li>
+				<li><a href="#"><i class="icon-facebook"></i></a></li>
+				<li><a href="#"><i class="icon-instagram"></i></a></li>
+			</ul>
+		</div>
+{% endblock %}
+
+	<!-- END #fh5co-header -->
+{% block content %}
+            {% if post.id > fast.id %}
+          <a href="{% url 'blog:artcle' id=post.id|add:'-1' %}" class="fh5co-post-prev"><span><i class="icon-chevron-left"></i> Prev</span></a>
+          {% endif %}
+
+           {% if post.id < last.id %}
+          <a href="{% url 'blog:artcle' id=post.id|add:'1' %}" class="fh5co-post-next"><span>Next <i class="icon-chevron-right"></i></span></a>
+          {% endif %}
+
+			<article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+				<figure class="animate-box">
+					<img src=" {{ post.image.url }}" alt="Image" class="img-responsive">
+				</figure>
+				<span class="fh5co-meta animate-box"><a href="{% url 'blog:topic' post.catagory.name %}">{{ post.catagory }}</a></span>
+				<h2 class="fh5co-article-title animate-box"><a href="{{ post.get_artical_url }}">{{ post.title }}</a></h2>
+				<span class="fh5co-meta fh5co-date animate-box">{{ post.posted_on }}</span>
+				
+				<div class="col-lg-12 col-lg-offset-0 col-md-12 col-md-offset-0 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0 text-left content-article">
+					<div class="row">
+
+						<div class="col-md-12 animate-box">
+
+
+							<p>its a body </p>
+						</div>
+					</div>
+					
+					
+				</div>
+			</article>
+
+          <div class="row">
+			  {% for related in rel%}
+
+			  <article class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+				<figure class="animate-box">
+					<a href="{{ related.get_artical_url }}"><img src="{{ related.image.url }}" alt="Image" class="img-responsive"></a>
+				</figure>
+
+				<h2 class="fh5co-article-title animate-box"><a href="{{ related.get_artical_url }}">{{ related.title }}</a></h2>
+
+
+
+
+			</article>
+
+			  {% endfor %}
+
+		  </div>
+<div class="container-fluid">
+
+	<div class="pagination">
+    <span class="step-links">
+        {% if rel.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ rel.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ rel.number }} of {{ rel.paginator.num_pages }}.
+        </span>
+
+        {% if rel.has_next %}
+            <a href="?page={{ rel.next_page_number }}">next</a>
+            <a href="?page={{ rel.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+</div>
+<div class="container-fluid">
+
+		<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"> comment :</h3>
+  </div>
+  <div class="panel-body">
+    <form  action="" method="POST">
+		{% for from in post_comment %}
+		<h4>	{{ from.name }}</h4>
+		<h5>{{ from.email}}</h5>
+
+		<p>{{ from.post_comment}}</p>
+		{% endfor %}
+
+
+	</form>
+  </div>
+</div>
+
+
+
+</div>
+<div class="container-fluid">
+		<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">create comment</h3>
+  </div>
+  <div class="panel-body">
+    <form  action="" method="POST">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button class="btn-btn-primary ">submit</button>
+
+
+	</form>
+  </div>
+</div>
+
+
+</div>
+{% endblock %}
+
+	{% block scrip %}
+    {% endblock %}

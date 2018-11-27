@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{%block title %}<title>this is author register page </title>{% endblock %}
+{% block style %}
+	<style type="text/css">
+		#fh5co-offcanvas {
+    width: auto;
+}
+#fh5co-offcanvas .fh5co-menu, #fh5co-offcanvas .fh5co-bio {
+    width: auto;
+    padding: 50px;
+}
+
+
+	</style>
+
+{% endblock  %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid">
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-bth-primary">SUBMIt</button>
+
+
+    </form>
+
+
+</div>
+
+
+
+{% endblock %}
+
+{% block scrip %}
+{% endblock %}>

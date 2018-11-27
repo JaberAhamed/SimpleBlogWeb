@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{%block title %}<title>this is profile login page </title>{% endblock %}
+{% block style %}
+
+
+<style>
+    .alert.alert-success {
+    height: 50px;
+    margin-top: 200px;
+}
+</style>
+{% endblock  %}
+
+{% block profile %}
+<div class="fh5co-bio">
+			<figure>
+				<img src="{{ auth.image.url }}" alt="Free HTML5 Bootstrap Template" class="img-responsive">
+			</figure>
+			<h3 class="heading">About Me</h3>
+			<h2>{{ auth.name.get_full_name }}</h2>
+
+			<p>{{ auth.details }} </p>
+			<ul class="fh5co-social">
+				<li><a href="#"><i class="icon-twitter"></i></a></li>
+				<li><a href="#"><i class="icon-facebook"></i></a></li>
+				<li><a href="#"><i class="icon-instagram"></i></a></li>
+			</ul>
+		</div>
+{% endblock %}
+{% load static %}
+{% block content %}
+
+
+
+ {% if messages %}
+              <div class="messages">
+            {% for message in messages %}
+              <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </div>
+         {% endif %}
+<div class="container">
+
+  <table class="table table-striped">
+  <thead>
+  <tr>
+  <td>Title<td>
+  <td>Posted On</td>
+  <td>Action</td>
+  </tr>
+  </thead>
+    <tbody>
+    {% for auth in post %}
+   <tr>
+     <td>{{auth.title}}<td>
+     <td>{{auth.posted_on}}</td>
+     <td><a href="{% url 'blog:delete' auth.id %}">delete</a>|<a href="{% url 'blog:update' auth.id %}">Edit</a></td>
+       {% endfor %}
+   </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block scrip %}
+{% endblock %}

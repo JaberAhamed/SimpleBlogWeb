@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{%block title %}<title>this is register page </title>{% endblock %}
+{% block style %}
+
+
+{% endblock  %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid">
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <button class="btn-btn-primary ">Register</button>
+
+    </form>
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block scrip %}
+{% endblock %}
